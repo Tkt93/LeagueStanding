@@ -39,6 +39,16 @@ public class Country {
         this.leagues = leagues;
     }
 
+    public Country() {
+    }
+
+    public Country(int countryId, String countryName,
+            List<League> leagues) {
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.leagues = leagues;
+    }
+
     @Override
     public String toString() {
         return "Country{" +

@@ -38,6 +38,16 @@ public class League {
         this.teamList = teamList;
     }
 
+    public League() {
+    }
+
+    public League(int leagueId, String leagueName,
+            List<Team> teamList) {
+        this.leagueId = leagueId;
+        this.leagueName = leagueName;
+        this.teamList = teamList;
+    }
+
     @Override
     public String toString() {
         return "League{" +
