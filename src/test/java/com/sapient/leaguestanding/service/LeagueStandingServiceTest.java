@@ -34,9 +34,11 @@ public class LeagueStandingServiceTest {
         List<Country> countries = new ArrayList<>();
         ArrayList<League> leagues = new ArrayList<>();
         ArrayList<Team> teamList = new ArrayList<>();
+        int countryId = 1;
+        int leagueId = 12;
         teamList.add(new Team(14, "team1", 4));
-        leagues.add(new League(12, "La Liga", teamList));
-        Country c1 = new Country(1, "France", leagues);
+        leagues.add(new League(leagueId, "La Liga", teamList));
+        Country c1 = new Country(countryId, "Spain", leagues);
         countries.add(c1);
         Mockito.when(
                 restTemplate.getForEntity(leagueStandingService.getCountriesURL(), Country[].class))
@@ -45,7 +47,7 @@ public class LeagueStandingServiceTest {
                                 HttpStatus.OK));
 
         Mockito.when(
-                restTemplate.getForEntity(leagueStandingService.getLeaguesURL() + "1", League[].class))
+                restTemplate.getForEntity(leagueStandingService.getLeaguesURL() + countryId, League[].class))
                 .thenReturn(new ResponseEntity<League[]>(leagues.toArray(new League[0]), HttpStatus.OK));
 
         List<Standings> standings = new ArrayList<>();
@@ -57,11 +59,11 @@ public class LeagueStandingServiceTest {
         standings.add(e);
 
         Mockito.when(
-                restTemplate.getForEntity(leagueStandingService.getStandingsURL() + "12", Standings[].class))
+                restTemplate.getForEntity(leagueStandingService.getStandingsURL() + leagueId, Standings[].class))
                 .thenReturn(new ResponseEntity<Standings[]>(standings.toArray(new Standings[0]), HttpStatus.OK));
 
         List<Country> countryWiseLeagueRanking = leagueStandingService
                 .getCountryWiseLeagueRanking();
-        Assert.assertEquals("France", countryWiseLeagueRanking.get(0).getCountryName());
+        Assert.assertEquals("Spain", countryWiseLeagueRanking.get(0).getCountryName());
     }
 }
